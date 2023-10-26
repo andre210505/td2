@@ -1,0 +1,427 @@
+1. Escreva um algoritmo recursivo para cada uma das alternativas (1,75).
+a) S(1) = 10
+S(n) = S(n – 1) + 10, para n  2
+b) A(1) = 2
+A(n) = A(n – 1)-1 , para n  2
+c) B(1) = 1
+B(n) = B(n – 1) + n2, para n  2
+d) P(1) = 1
+P(n) = n2*P(n – 1) + n - 1, para n  2
+e) D(1) = 3
+D(2) = 5
+D(n) = (n – 1)*D(n – 1) + (n – 2)*D(n – 2), para n > 2
+f) W(1) = 2
+W(2) = 5
+W(n) = W(n – 1)*W(n – 2), para n > 2
+g) T(1) = 1
+T(2) = 2
+T(3) = 3
+T(n) = T(n – 1) + 2*T(n – 2) + 3*T(n – 3), para n > 3
+
+RESPOSTA:
+
+def ex1_a(n):
+    if n == 1:
+        return 10
+    else:
+        return ex1_a(n - 1) + 10
+
+def ex1_b(n):
+    if n == 1:
+        return 2
+    else:
+        return ex1_b(n - 1) - 1
+
+def ex1_c(n):
+    if n == 1:
+        return 1
+    else:
+        return ex1_c(n - 1) + n**2
+
+def ex1_d(n):
+    if n == 1:
+        return 1
+    else:
+        return n**2 * ex1_d(n - 1) + n - 1
+
+def ex1_e(n):
+    if n == 1:
+        return 3
+    elif n == 2:
+        return 5
+    else:
+        return (n - 1) * ex1_e(n - 1) + (n - 2) * ex1_e(n - 2)
+
+def ex1_f(n):
+    if n == 1:
+        return 2
+    elif n == 2:
+        return 5
+    else:
+        return ex1_f(n - 1) * ex1_f(n - 2)
+
+def ex1_g(n):
+  if n == 1:
+    return 1
+  elif n == 2:
+    return 2
+  elif n == 3:
+    return 3
+  else:
+    return ex1_g(n - 1) + 2 * ex1_g(n - 2) + 3 * ex1_g(n - 3)
+
+print("Escolha a questão a ser executada:")
+print("a) ex1_a e n >= 2")
+print("b) ex1_b e n >= 2")
+print("c) ex1_c e n >= 2")
+print("d) ex1_d e n >= 2")
+print("e) ex1_e e n > 2")
+print("f) ex1_f e n > 2")
+print("g) ex1_g e n > 3")
+
+opcao = input("Opção: ")
+
+n = int(input("Digite o valor de n: "))
+
+if opcao == 'a' and n >= 2:
+    resultado = ex1_a(n)
+elif opcao == 'b'and n >= 2:
+    resultado = ex1_b(n)
+elif opcao == 'c' and n >= 2:
+    resultado =ex1_c(n)
+elif opcao == 'd' and n >= 2:
+    resultado = ex1_d(n)
+elif opcao == 'e'and n > 2:
+    resultado = ex1_e (n)
+elif opcao == 'f'and n > 2:
+    resultado = ex1_f(n)
+elif opcao == 'g'and n > 3:
+    resultado = ex1_g(n)
+else:
+    resultado = "Erro, letra escolhida ou valor de n não está nos conformes. "
+
+print(f"Resultado: {resultado}")
+
+
+2. Escreva uma definição recursiva para uma progressão geométrica com termo inicial a e razão r.
+(0,25)
+
+RESPOSTA:
+
+def calcular_pg(a, r, n):
+  if n == 1:
+      return a
+  else:
+      return r * calcular_pg(a, r, n - 1)
+
+a = int(input(f'Digite o primeiro termo da PG: '))
+r = int(input(f'Digite a razão da PG: '))
+n = int(input(f'Digite o número de termos da PG: '))
+
+
+termo_n = calcular_pg(a, r, n)
+print(f"O {n}-ésimo termo da progressão geométrica é: {termo_n}")
+
+
+
+3. Uma coleção T de números é definida recursivamente por:
+2  T
+Se X  T, então X+3  T e 2*X  T
+Quais dos seguintes números pertencem a T? 6 , 7 , 19 , 12.
+Faça um programa recursivo para demonstrar. (0,5)
+
+RESPOSTA:
+
+def pertence_a_t(numero):
+  if numero == 2:
+      return True
+  elif numero < 2:
+      return False
+  elif numero % 2 == 0:
+      return pertence_a_t(numero // 2)
+  elif (numero - 3) % 2 == 0 and ((numero - 3) // 2) % 3 == 0:
+      return pertence_a_t((numero - 3) // 2)
+  else:
+      return False
+
+numeros = [6, 7, 19, 12]
+
+for numero in numeros:
+  if pertence_a_t(numero):
+      print(f"{numero} não pertence à coleção T.")
+  else:
+      print(f"{numero}  pertence à coleção T.")
+
+
+4. Uma coleção M de números é definida recursivamente por:
+2  M e 3  M
+Se X  M e Y  M, então X*Y  M .
+Quais dos seguintes números pertencem a M? 6 , 9 , 16 , 21 , 26 , 54 , 72 , 218.
+Faça um programa recursivo para demonstrar. (0,5)
+
+RESPOSTA:
+
+def pertence_a_m(numero):
+  if numero == 2 or numero == 3:
+      return True
+  if numero < 2:
+      return False
+
+  for x in range(2, numero):
+      if numero % x == 0 and pertence_a_m(x) and pertence_a_m(numero // x):
+          return True
+  return False
+
+numeros = [6 , 9 , 16 , 21 , 26 , 54 , 72 , 218]
+
+for numero in numeros:
+  if pertence_a_m(numero):
+      print(f"{numero} pertence à coleção M.")
+  else:
+      print(f"{numero} não pertence à coleção M.")
+
+5. Uma coleção S de cadeias de caracteres é definida recursivamente por:
+a  S e b  S
+Se X  S, então Xb  S.
+Quais das seguintes cadeias pertencem a S? a , ab , aba , aaab , bbbbb
+Faça um programa recursivo para demonstrar. (0,5)
+
+RESPOSTA:
+
+def pertence_a_S(s):
+
+  if s == 'a' or s == 'b':
+      return True
+
+  
+  if s[0] == 'a' and pertence_a_S(s[1:]):
+      return True
+
+ 
+  if s[:2] == 'ab' and pertence_a_S(s[2:]):
+      return True
+
+ 
+  return False
+
+cadeias = ["a", "ab", "aba", "aaab", "bbbbb"]
+for cadeia in cadeias:
+  if pertence_a_S(cadeia):
+      print(f'A cadeia "{cadeia}" pertence a S.')
+  else:
+      print(f'A cadeia "{cadeia}" NÃO pertence a S.')
+
+6. Uma coleção W de cadeias de símbolos é definida recursivamente por:
+a  W, b  W e c  W
+Se X  W, então a(X)c  W.
+Quais das seguintes cadeias pertencem a S? a(b)c , a(a(b)c)c , a(abc)c , a(a(a(a)c)c)c ,
+a(aacc)c
+Faça um programa recursivo para demonstrar. (0,5)
+
+RESPOSTA:
+
+def pertence_a_W(cadeia):
+    if not cadeia:
+        return True
+    if cadeia[0] == 'a' and cadeia[-1] == 'c':
+        return pertence_a_W(cadeia[1:-1])
+    return False
+
+
+cadeias = ["a(b)c", "a(a(b)c)c", "a(abc)c", "a(a(a(a)c)c)c", "a(aacc)c"]
+
+for cadeia in cadeias:
+    if pertence_a_W(cadeia):
+        print(f"'{cadeia}' pertence a W")
+    else:
+        print(f"'{cadeia}' não pertence a W")
+
+
+7. Forneça uma definição recursiva para todas as cadeias binárias (cadeias formadas com os
+caracteres 0 e 1) contendo um número ímpar de zeros. (0,5 na prova)
+
+RESPOSTA:
+
+def cadeias_binarias_impares(n):
+    if n == 1:
+        return ["0"]
+    elif n == 2:
+        return ["01"]
+    else:
+        com_zeros_impares = ["0" + s for s in cadeias_binarias_impares(n - 1)]
+        com_zeros_pares = ["01" + s for s in cadeias_binarias_impares(n - 2)]
+        return com_zeros_impares + com_zeros_pares
+
+n = int(input("Digite o número: "))
+cadeias = cadeias_binarias_impares(n)
+for cadeia in cadeias:
+    print(cadeia)
+
+
+
+
+8. Escreva o corpo da função recursiva para computar S(n) para uma dada seqüência S(1 ponto):
+a) 1 , 3 , 9 , 27 , ...
+1 1
+b) 2 , 1 , 2 , 4 , ...
+c) a , b , a + b , a + 2b , 2a + 3b , ...
+d) p , p – q , p + q , p – 2q , p + 2q , p – 3q , ...
+
+RESPOSTA:
+
+sequencia a:
+def S_a(n):
+  if n == 1:
+      print("1", end=' ')
+      return 1
+  else:
+      resultado = 3 * S_a(n - 1)
+      print(resultado, end=' ')
+      return resultado
+n_value = int(input("escreva o numero de repetições que você deseja: "))
+print("Sequência a:")
+S_a(n_value)
+
+
+
+sequencia b:
+def divide_por_dois_ate_zero_com_print(numero):
+  while numero > 0:
+      print(numero)
+      numero = numero // 2  
+num=int(input("escreva o numero desejado: "))
+divide_por_dois_ate_zero_com_print(num)
+
+
+sequencia c 
+
+def S_c(n, a, b):
+  if n == 1:
+      print(a, end=' ')
+      return a
+  elif n == 2:
+      print(b, end=' ')
+      return b
+  else:
+      result = S_c(n - 2, a, b) + S_c(n - 1, a, b)
+      print(result, end=' ')
+      return result
+
+n_value = int(input("escolha o valor para n: "))
+a_value = int(input("escolha o vaor para a: "))
+b_value = int(input("escreva o valor de b: "))
+print("Sequência c:")
+S_c(n_value, a_value, b_value)
+
+
+sequencia d
+
+def S_d(n, p, q):
+    if n == 1:
+        print(p, end=' ')
+        return p
+    elif n == 2:
+        result = p - q
+        print(result, end=' ')
+        return result
+    else:
+        if n % 2 == 0:
+            result = S_d(n - 1, p, q) + 2 * q
+        else:
+            result = S_d(n - 1, p, q) - 2 * q
+        print(result, end=' ')
+        return result
+n_value = 6  # Escolha um valor de n
+p_value = 10  # Defina o valor de "p"
+q_value = 2   # Defina o valor de "q"
+print("Sequência d:")
+S_d(n_value, p_value, q_value)
+
+9. Membros antigos da Sociedade de Pitágoras definiram números figurados como sendo o
+número de pontos em uma certa configuração geométrica. Os primeiros números triangulares
+são 1, 3, 6 e 10, e são semelhantes ao diagrama da figura abaixo:
+10631
+Encontre a fórmula para o n-ésimo número triangular e escreva um programa recursivo.(0,5)
+
+RESPOSTA:
+
+x = 1
+y = 2
+
+
+num_iteracoes = int(input("numero de repetições que você deseja")) 
+somas = []
+
+for i in range(num_iteracoes):
+    x += y 
+    somas.append(x)
+    y += 1 
+
+for i, soma in enumerate(somas):
+    print(f"Iteração {i + 1}: Soma = {soma}")
+
+
+
+10 . Em um experimento, certa colônia de bactérias tem inicialmente uma população igual a
+50.000. Uma leitura é feita a cada hora e, no final deste intervalo, há três vezes mais bactérias
+que antes. (a) Escreva a definição recursiva para A(n), o número de bactérias presentes no
+início do n-ésimo período de tempo. (0,25)(b) Em quantas leituras a população excederá
+200.000 bactérias?(0,25)
+
+RESPOSTA:
+
+a.
+
+def populacao_n(n):
+  if n == 0:
+      return 50000  
+  else:
+      return 3 * populacao_n(n - 1)
+
+n = int(input("Digite o número de períodos: "))
+resultado = populacao_n(n)
+print(f"A população no {n}-ésimo período de tempo é: {resultado}")
+
+b.
+
+população = 50000
+leituras = 0
+
+while população <= 200000:
+    população *= 3
+    leituras += 1
+
+print("O número de leituras necessárias para a população exceder 200.000 é:", leituras)
+
+
+11. (1,0) Considere o algoritmo recursivo:
+Lista Rotina (Lista L, inteiro j) {
+Se (j == 1)
+return L;
+Encontre o L[i], o maior item da lista L entre 1 e j;
+Troque o L[i] pelo item L[j];
+return Rotina (L, j – 1);
+}
+Para L = [3, 7, 4, 2, 6 ] faça a chamada Rotina (L, 5);:
+a) Represente L e o total de chamadas realizadas à Rotina.
+
+RESPOSTA:
+
+def Rotina(L, j):
+  if j == 1:
+      return L
+
+  max_index = L.index(max(L[:j]))
+
+  L[max_index], L[j - 1] = L[j - 1], L[max_index]
+
+  return Rotina(L, j - 1)
+
+
+L = [3, 7, 4, 2, 6]
+
+
+resultado = Rotina(L, 5)
+
+print("Lista ordenada:", resultado)
+print("Total de chamadas à Rotina:", 5)
